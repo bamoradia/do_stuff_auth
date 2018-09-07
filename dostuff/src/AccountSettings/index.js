@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 
 // Account settings page
 
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 class AccountSettings extends Component{
   constructor(props){
     super(props);
@@ -17,7 +20,7 @@ class AccountSettings extends Component{
   // this will make a request to the backend server to update the user information 
   handleSubmit = async (e) => {
   e.preventDefault();
-  const editUserResponse = await fetch('http://localhost:8000/api/edituser', {
+  const editUserResponse = await fetch(apiURL + 'api/edituser', {
     method: 'PUT',
     credentials: 'include',
     body: JSON.stringify(this.state),

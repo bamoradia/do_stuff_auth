@@ -11,6 +11,9 @@ import Logout from './Logout'
 import AccountSettings from './AccountSettings'
 import YourEventsContainer from './YourEventsContainer'
 
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 //Wrong page error message
 const My404 = () => {
   return (
@@ -124,7 +127,7 @@ class App extends Component {
   //makes original fetch call to API to get updated data
   addInitialData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/events');
+      const response = await fetch(apiURL + 'api/events');
 
       const responseJSON = await response.json()
       const eventsJSON = await JSON.parse(responseJSON.data.events)

@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 
 class Logout extends Component {
 
 	//makes the logout call to the backend server
 	tryLogout = async ()  => {
 		if(this.props.loggedIn) {
-			const logout = await fetch('http://localhost:8000/api/logout', {
+			const logout = await fetch(apiURL + 'api/logout', {
 				credentials: 'include'
 			});
 

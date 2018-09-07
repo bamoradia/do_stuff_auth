@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 class Register extends Component {
 	constructor(){
 		super();
@@ -16,7 +19,7 @@ class Register extends Component {
 		const theBody=JSON.stringify(this.state)
 		e.preventDefault();
 		try {
-			const registerResponse = await fetch('http://localhost:8000/api/register', {
+			const registerResponse = await fetch(apiURL + 'api/register', {
 				method: 'POST',
 				credentials: 'include',
 				body: theBody,

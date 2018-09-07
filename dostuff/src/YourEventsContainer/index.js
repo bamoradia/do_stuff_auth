@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Events from '../Events';
 import {Route, Switch} from 'react-router-dom';
 
-
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
 
 
 class YourEventsContainer extends Component {
@@ -19,7 +20,7 @@ class YourEventsContainer extends Component {
   addEvent = async (event, e) => {
     e.preventDefault();
     try {
-      const events = await fetch('http://localhost:8000/api/addevent', { // Possibly incorrect api call
+      const events = await fetch(apiURL + 'api/addevent', { // Possibly incorrect api call
         method: 'POST',
         body: JSON.stringify(event),
         headers: {
@@ -40,7 +41,7 @@ class YourEventsContainer extends Component {
     e.preventDefault();
     console.log('deleteEvent function is being called, this is the id: ', id);
     try {
-      const deleteEvent = await fetch('http://localhost:8000/api/deleteevent' + id, {
+      const deleteEvent = await fetch(apiURL + 'api/deleteevent' + id, {
         method: 'DELETE'
       });
 

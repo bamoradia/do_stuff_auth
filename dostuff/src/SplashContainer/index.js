@@ -4,6 +4,9 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PasswordMask from 'react-password-mask';
 
+// const apiURL = 'http://localhost:8000/';
+const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 
 class SplashContainer extends Component {
   constructor(){
@@ -19,7 +22,7 @@ class SplashContainer extends Component {
   handleSubmit = async (e) => {
     try{
       e.preventDefault();
-      const loginResponse = await fetch('http://localhost:8000/api/login', {
+      const loginResponse = await fetch(apiURL + 'api/login', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(this.state),
