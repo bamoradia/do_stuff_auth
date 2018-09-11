@@ -20,6 +20,7 @@ class AccountSettings extends Component{
   // this will make a request to the backend server to update the user information 
   handleSubmit = async (e) => {
   e.preventDefault();
+  // eslint-disable-next-line
   const editUserResponse = await fetch(apiURL + 'api/edituser', {
     method: 'PUT',
     credentials: 'include',
@@ -29,7 +30,7 @@ class AccountSettings extends Component{
     }
   });
     //gets the response from the server
-    const responseJSON = await editUserResponse.json()
+    // const responseJSON = await editUserResponse.json()
 
     this.props.updateUser(this.state.location, this.state.categories)
 

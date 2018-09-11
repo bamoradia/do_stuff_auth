@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './Header';
 import CategoryEventContainer from './CategoryEventContainer'
-import { withRouter, Route, Switch, Redirect} from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import Categories from './Categories';
 import SplashContainer from './SplashContainer';
 import Register from './Register'
