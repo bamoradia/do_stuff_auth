@@ -9,6 +9,7 @@ import Register from './Register'
 import Logout from './Logout'
 import AccountSettings from './AccountSettings'
 import YourEventsContainer from './YourEventsContainer'
+import Loading from './Loading'
 
 // const apiURL = 'http://localhost:8000/';
 const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
@@ -44,7 +45,9 @@ class App extends Component {
       //category that user last picked in home page
       activeCategory: 'other',
       //track status of user login
-      loggedIn: false
+      loggedIn: false,
+      //false until initial data is loaded from backend server
+      loaded: false
     }
   }
 
@@ -90,7 +93,8 @@ class App extends Component {
     this.addInitialData().then(data => {
       this.setState({
         categories: data.categories,
-        allEvents: data.events
+        allEvents: data.events,
+        loaded: true
       })
     })
   }
@@ -160,7 +164,7 @@ class App extends Component {
         <Header />
         <Switch>
           
-          <Route exact path='/' render={() => <SplashContainer login={this.login} loggedIn={this.state.loggedIn}/> } />
+          {this.state.loaded ? <Route exact path='/' render={() => <SplashContainer login={this.login} loggedIn={this.state.loggedIn}/> } /> : <Route path='/' render={() => <Loading /> } /> }
           <Route exact path='/categoryevent' render={() => <CategoryEventContainer allEvents={this.state.allEvents} categories={this.state.categories} activeCategory={this.state.activeCategory} />}
           />
           <Route exact path='/categories' render={() => <Categories userCategories={this.state.userCategories} categories={this.state.categories} changeActiveCategory={this.changeActiveCategory} />}
