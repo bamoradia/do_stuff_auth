@@ -164,7 +164,7 @@ class App extends Component {
           <Route exact path='/' render={() => <SplashContainer login={this.login} loggedIn={this.state.loggedIn}/> } />
           <Route exact path='/categoryevent' render={() => <CategoryEventContainer allEvents={this.state.allEvents} categories={this.state.categories} activeCategory={this.state.activeCategory} />}
           />
-          <Route exact path='/categories' render={() => <Categories categories={this.state.categories} changeActiveCategory={this.changeActiveCategory} />}
+          <Route exact path='/categories' render={() => <Categories userCategories={this.state.userCategories} categories={this.state.categories} changeActiveCategory={this.changeActiveCategory} />}
           />
           <Route exact path='/register' render={() => <Register register={this.register} /> } />
           <Route exact path='/logout' render={() => <Logout logout={this.logout} loggedIn={this.state.loggedIn} history={this.props.history}/> } />

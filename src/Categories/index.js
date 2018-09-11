@@ -12,17 +12,31 @@ class Categories extends Component {
 
 
   render() {
-    return (
-      <div id="categories">
-        {this.props.categories.map((category, i) => {
-          return (
-            <div onClick={this.clickHandle} id={category} className='categoryList' key={i}>
-              <span value={category}>{category}</span>
-            </div>
-          )
-        })}
-      </div>
-    )
+    if(this.props.userCategories.length === 0) {
+      return (
+        <div id="categories">
+          {this.props.categories.map((category, i) => {
+            return (
+              <div onClick={this.clickHandle} id={category} className='categoryList' key={i}>
+                <span value={category}>{category}</span>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else {
+      return (
+        <div id="categories">
+          {this.props.userCategories.map((category, i) => {
+            return (
+              <div onClick={this.clickHandle} id={category} className='categoryList' key={i}>
+                <span value={category}>{category}</span>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
   } 
 }
 
