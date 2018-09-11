@@ -66,7 +66,7 @@ class SplashContainer extends Component {
 
             <div className="login">
               <form onSubmit={this.handleSubmit}>
-                <label for='usernameinput'>
+                <label htmlFor='usernameinput'>
                   Username:
                 </label>
                 <br />
