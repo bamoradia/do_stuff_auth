@@ -158,21 +158,90 @@ class App extends Component {
     this.props.history.push('/categoryevent')
   }
 
+  addEvent = async (event) => {
+    try {
+      if(this.state.loggedIn) {
+        const response = await fetch(apiURL + 'api/addevent');
+
+        const responseJSON = await response.json();
+        console.log(responseJSON)
+      } else {
+        this.props.history.push('/register')
+      }
+    } catch (err) {
+      console.log(err, 'error with add event route')
+    }
+
+  }
+
   render() {
     return (
       <main>
         <Header />
         <Switch>
           
-          {this.state.loaded ? <Route exact path='/' render={() => <SplashContainer login={this.login} loggedIn={this.state.loggedIn}/> } /> : <Route path='/' render={() => <Loading /> } /> }
-          <Route exact path='/categoryevent' render={() => <CategoryEventContainer allEvents={this.state.allEvents} categories={this.state.categories} activeCategory={this.state.activeCategory} />}
+          {this.state.loaded ? 
+            <Route exact path='/' render={() => 
+              <SplashContainer 
+                login={this.login} 
+                loggedIn={this.state.loggedIn}/> } 
+              /> 
+            :
+            <Route path='/' render={() => 
+              <Loading /> } /> 
+          }
+
+
+          <Route exact path='/categoryevent' render={() => 
+            <CategoryEventContainer 
+              allEvents={this.state.allEvents} 
+              categories={this.state.categories} 
+              activeCategory={this.state.activeCategory}
+              addEvent={this.addEvent} 
+            />}
           />
-          <Route exact path='/categories' render={() => <Categories userCategories={this.state.userCategories} categories={this.state.categories} changeActiveCategory={this.changeActiveCategory} />}
+
+
+          <Route exact path='/categories' render={() => 
+            <Categories 
+              userCategories={this.state.userCategories} 
+              categories={this.state.categories} 
+              changeActiveCategory={this.changeActiveCategory} 
+            />}
           />
-          <Route exact path='/register' render={() => <Register register={this.register} /> } />
-          <Route exact path='/logout' render={() => <Logout logout={this.logout} loggedIn={this.state.loggedIn} history={this.props.history}/> } />
-          <Route exact path='/settings' render={() => <AccountSettings userId={this.state.userId} loggedIn={this.state.loggedIn} userLocation={this.state.userLocation} userCategories={this.state.userCategories} categories={this.state.categories} changeUserCategory={this.changeUserCategory} updateUser={this.updateUser}/> } />
-          <Route exact path='/yourevents' render={() => <YourEventsContainer categories={this.state.categories} changeActiveCategory={this.changeActiveCategory} />}
+
+
+          <Route exact path='/register' render={() => 
+            <Register 
+              register={this.register} 
+            /> } 
+          />
+
+          <Route exact path='/logout' render={() => 
+            <Logout 
+              logout={this.logout} 
+              loggedIn={this.state.loggedIn} 
+              history={this.props.history}
+            /> } 
+          />
+
+          <Route exact path='/settings' render={() => 
+            <AccountSettings 
+              userId={this.state.userId} 
+              loggedIn={this.state.loggedIn} 
+              userLocation={this.state.userLocation} 
+              userCategories={this.state.userCategories} 
+              categories={this.state.categories} 
+              changeUserCategory={this.changeUserCategory} 
+              updateUser={this.updateUser}
+            /> } 
+          />
+
+          <Route exact path='/yourevents' render={() => 
+            <YourEventsContainer 
+              categories={this.state.categories} 
+              changeActiveCategory={this.changeActiveCategory} 
+            />}
           />
 
           <Route component={My404}/>

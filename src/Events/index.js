@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 
-const Events = (props) => {
+class Events extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 
-	//this returns a component that shows information about the event
-  return (
-  	<div>
-	    <a className='events' target='_blank' href={props.eventInfo.url}>
-	    <img  className='eventImg' src={props.eventInfo.image_url} alt={props.eventInfo.name}/>
-	     <div> <h4>{props.eventInfo.name}</h4></div></a><br/>
-	    <button onClick={props.addEvent}>Add to Your Events</button>
-    </div>
-    
-  )
+		}
+	}
+
+	//purpose is to change color of next active method to green
+  placeholderMethod = () => {
+  }
+
+  handleClick = (e) => {
+  	e.preventDefault();
+  	this.props.addEvent(e.currentTarget.id)
+  }
+
+	render() {
+		//this returns a component that shows information about the event
+	  return (
+	  	<div>
+		    <a className='events' target='_blank' href={this.props.eventInfo.url}>
+		    <img  className='eventImg' src={this.props.eventInfo.image_url} alt={this.props.eventInfo.name}/>
+		     <div> <h4>{this.props.eventInfo.name}</h4></div></a><br/>
+		    <button id={this.props.eventInfo.url} onClick={this.handleClick}>Add to Your Events</button>
+	    </div>
+	    
+	  )
+	 }
 
 }
 

@@ -10,36 +10,55 @@ class Register extends Component {
 			username: "",
 			password: "",
 			confirm: "",
-			location: ""
+			location: "",
+			passwordCheck: true,
+			usernameCheck: true
 		}
 	}
 
 	//sends register attempt to the backend server
 	handleSubmit = async (e) => {
-		const theBody=JSON.stringify(this.state)
 		e.preventDefault();
-		try {
-			const registerResponse = await fetch(apiURL + 'api/register', {
-				method: 'POST',
-				credentials: 'include',
-				body: theBody,
-				header: {
-					'Content-Type': 'application/json'
-				}
-			})
-	
-		const registerResponseJSON = await registerResponse.json();
-
-		//checks status from server
-		if(registerResponseJSON.status === 200) {
-			this.props.register(this.state.location, registerResponseJSON.userid)
-		}
+		if(this.state.password === this.state.confirm) {
+			const theBody=JSON.stringify(this.state)
+			try {
+				const registerResponse = await fetch(apiURL + 'api/register', {
+					method: 'POST',
+					credentials: 'include',
+					body: theBody,
+					header: {
+						'Content-Type': 'application/json'
+					}
+				})
 		
-	} catch (err) {
+				const registerResponseJSON = await registerResponse.json();
 
-		console.log(err, 'ERROR HERE')
+				//checks status from server
+				if(registerResponseJSON.status === 200) {
+					this.props.register(this.state.location, registerResponseJSON.userid)
+				} else if (registerResponseJSON.status === 403) {
+					this.setState({
+						usernameCheck: false, 
+						password: '', 
+						confirm: '', 
+						location: ''
+					})
+				}
+			
+			} catch (err) {
+
+				console.log(err, 'ERROR HERE')
+			}
+		} else {
+			this.setState({
+				passwordCheck: false, 
+				username: '', 
+				password: '', 
+				confirm: '', 
+				location: ''
+			})
 		}
-	}
+	} 
 
 
 
@@ -85,6 +104,8 @@ class Register extends Component {
 						</label>
 						
 						<button>Submit</button>
+						{this.state.passwordCheck ? null : <h3>Passwords do not match</h3>}
+						{this.state.usernameCheck ? null : <h3>Username already taken. Please use another username</h3>}
 					</form>
 				</div>
 			</div>

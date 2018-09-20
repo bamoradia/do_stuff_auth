@@ -32,6 +32,8 @@ class SplashContainer extends Component {
 
       //parses response data to useable objects
       const loginResponseJSON = await loginResponse.json()
+
+      console.log(loginResponseJSON, 'this is the full response')
       const loginCategories = await JSON.parse(loginResponseJSON.categories)
 
       const userCats = []
@@ -39,6 +41,8 @@ class SplashContainer extends Component {
       for(let i = 0; i < loginCategories.length; i++) {
         userCats.push(loginCategories[i].fields.name)
       }  
+
+      console.log(userCats)
       //updates user info if login successful
       if(loginResponseJSON.status === 200) {
         this.props.login(loginResponseJSON.userid, userCats)
