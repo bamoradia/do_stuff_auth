@@ -85,10 +85,14 @@ class App extends Component {
   }
 
   //called if logout is successful
-  logout = () => {
+  logout = (status) => {
     this.setState({
       loggedIn: false,
-      userId: ''
+      userId: '',
+      userLocation: '',
+      userKey: '',
+      userCategories: [],
+      userEvent: []
     })
     this.props.history.push('/')
   }
@@ -227,6 +231,8 @@ class App extends Component {
               logout={this.logout} 
               loggedIn={this.state.loggedIn} 
               history={this.props.history}
+              userId={this.state.userId}
+              userKey={this.state.userKey}
             /> } 
           />
 
