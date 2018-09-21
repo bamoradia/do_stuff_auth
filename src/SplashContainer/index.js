@@ -53,7 +53,7 @@ class SplashContainer extends Component {
 
 
     } catch (err) {
-      console.log(err, 'stop lying!')
+      console.log(err, 'Error with login in splash container')
     }
   }
 

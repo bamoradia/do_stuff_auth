@@ -238,6 +238,7 @@ class App extends Component {
               categories={this.state.categories} 
               changeUserCategory={this.changeUserCategory} 
               updateUser={this.updateUser}
+              userKey={this.state.userKey}
             /> } 
           />
 

@@ -13,7 +13,8 @@ class AccountSettings extends Component{
       categories: this.props.userCategories,
       allCategories: this.props.categories,
       location: this.props.userLocation,
-      userid: this.props.userId
+      userid: this.props.userId,
+      key: this.props.userKey
     }
   }
 
