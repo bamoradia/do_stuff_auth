@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+const apiURL = 'http://localhost:8000/';
+// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+
 
 class Events extends Component {
 	constructor(props) {
@@ -13,9 +16,23 @@ class Events extends Component {
   placeholderMethod = () => {
   }
 
-  handleClick = (e) => {
+  handleClick = async (e) => {
   	e.preventDefault();
-  	this.props.addEvent(e.currentTarget.id)
+  	try{
+	  	const registerResponse = await fetch(apiURL + 'api/testing', {
+						credentials: 'include',
+						header: {
+							'Content-Type': 'application/json'
+						}
+			})
+			const registerResponseJSON = await registerResponse.json();
+			console.log(registerResponseJSON)
+  		
+  	} catch (err) {
+  		console.log(err, 'error with handleclick')
+  	}
+
+  	// this.props.addEvent(e.currentTarget.id)
   }
 
 	render() {
@@ -25,7 +42,7 @@ class Events extends Component {
 		    <a className='events' target='_blank' href={this.props.eventInfo.url}>
 		    <img  className='eventImg' src={this.props.eventInfo.image_url} alt={this.props.eventInfo.name}/>
 		     <div> <h4>{this.props.eventInfo.name}</h4></div></a><br/>
-		    <button id={this.props.eventInfo.url} onClick={this.handleClick}>Add to Your Events</button>
+		    <button id={this.props.eventInfo.eventid} onClick={this.handleClick}>Add to Your Events</button>
 	    </div>
 	    
 	  )

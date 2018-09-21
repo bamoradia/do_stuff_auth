@@ -11,8 +11,8 @@ import AccountSettings from './AccountSettings'
 import YourEventsContainer from './YourEventsContainer'
 import Loading from './Loading'
 
-// const apiURL = 'http://localhost:8000/';
-const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+const apiURL = 'http://localhost:8000/';
+// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
 
 //Wrong page error message
 const My404 = () => {
@@ -36,6 +36,8 @@ class App extends Component {
       userLocation: '',
       //userid saver here
       userId: '',
+      //user key to be sent along with all fetch calls
+      userKey: '',
       //all events saved here
       allEvents: [],
       //last active page stored here
@@ -56,22 +58,24 @@ class App extends Component {
   }
 
   //called if login was successful
-  login = (userId, userCategories) => {
+  login = (userId, userCategories, key) => {
     this.setState({
       loggedIn: true,
       userId: userId, 
-      userCategories: userCategories
+      userCategories: userCategories, 
+      userKey: key
     })
     this.props.history.push('/categories')
   }
 
   //called if register was successful
-  register = (location, userId) => {
+  register = (location, userId, key) => {
 
     this.setState({
       loggedIn: true,
       userLocation: location,
-      userId: userId
+      userId: userId,
+      userKey: key
     })
     //
     //  CHANGE TO ACCOUNT SETTINGS PAGE

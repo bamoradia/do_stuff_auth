@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-// const apiURL = 'http://localhost:8000/';
-const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+const apiURL = 'http://localhost:8000/';
+// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
 
 class Register extends Component {
 	constructor(){
@@ -35,7 +35,7 @@ class Register extends Component {
 
 				//checks status from server
 				if(registerResponseJSON.status === 200) {
-					this.props.register(this.state.location, registerResponseJSON.userid)
+					this.props.register(this.state.location, registerResponseJSON.userid, registerResponseJSON.key)
 				} else if (registerResponseJSON.status === 403) {
 					this.setState({
 						usernameCheck: false, 

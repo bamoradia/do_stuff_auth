@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-// const apiURL = 'http://localhost:8000/';
-const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+const apiURL = 'http://localhost:8000/';
+// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
 
 
 class Logout extends Component {

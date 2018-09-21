@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-// const apiURL = 'http://localhost:8000/';
-const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
-
+const apiURL = 'http://localhost:8000/';
+// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+// 
 
 class SplashContainer extends Component {
   constructor(){
@@ -13,6 +13,7 @@ class SplashContainer extends Component {
     this.state = {
       username: '',
       password: '',
+      error: false
       // skipLogin: null
     }
   }
@@ -32,21 +33,24 @@ class SplashContainer extends Component {
 
       //parses response data to useable objects
       const loginResponseJSON = await loginResponse.json()
-
-      console.log(loginResponseJSON, 'this is the full response')
-      const loginCategories = await JSON.parse(loginResponseJSON.categories)
-
-      const userCats = []
-      //gets category names from response data
-      for(let i = 0; i < loginCategories.length; i++) {
-        userCats.push(loginCategories[i].fields.name)
-      }  
-
-      console.log(userCats)
-      //updates user info if login successful
       if(loginResponseJSON.status === 200) {
-        this.props.login(loginResponseJSON.userid, userCats)
+        const loginCategories = await JSON.parse(loginResponseJSON.categories)
+
+        const userCats = []
+        //gets category names from response data
+        for(let i = 0; i < loginCategories.length; i++) {
+          userCats.push(loginCategories[i].fields.name)
+        }  
+        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key)
+        
+      } else {
+        this.setState({
+          username: '',
+          password: '',
+          error: true
+        })
       }
+
 
     } catch (err) {
       console.log(err, 'stop lying!')
@@ -87,6 +91,7 @@ class SplashContainer extends Component {
               
                 <button>Submit</button>
               </form>
+              {this.state.error ? <h3>Incorrect Username or Password</h3> : null}
             </div>
 
           </div> 
