@@ -41,7 +41,7 @@ class SplashContainer extends Component {
         for(let i = 0; i < loginCategories.length; i++) {
           userCats.push(loginCategories[i].fields.name)
         }  
-        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key)
+        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location)
         
       } else {
         this.setState({

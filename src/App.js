@@ -58,12 +58,13 @@ class App extends Component {
   }
 
   //called if login was successful
-  login = (userId, userCategories, key) => {
+  login = (userId, userCategories, key, location) => {
     this.setState({
       loggedIn: true,
       userId: userId, 
       userCategories: userCategories, 
-      userKey: key
+      userKey: key, 
+      userLocation: location
     })
     this.props.history.push('/categories')
   }
