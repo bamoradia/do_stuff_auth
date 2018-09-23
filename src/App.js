@@ -204,6 +204,40 @@ class App extends Component {
 
   }
 
+  deleteEvent = async (event) => {
+    try {
+      if(this.state.loggedIn) {
+        const body = JSON.stringify({key: this.state.userKey, userid: this.state.userId, event: event})
+        const response = await fetch(apiURL + 'api/deleteevent', {
+          method:'POST',
+          credentials: 'include',
+          body: body,
+          header: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+
+        const responseJSON = await response.json();
+        if(responseJSON.status === 200) {
+          const events = this.state.userEvents.filter(event => event.fields.url != event)
+          this.setState({
+            userEvents: events
+          })
+        } else if(responseJSON.status === 204) {
+          //do nothing - event not in database
+        } else if(responseJSON.status === 401) {
+          //User not authenticated properly
+        }
+      } else {
+        this.props.history.push('/register')
+      }
+    } catch (err) {
+      console.log(err, 'error with add event route')
+    }
+
+  }
+
   render() {
     return (
       <main>
@@ -273,6 +307,7 @@ class App extends Component {
           <Route exact path='/yourevents' render={() => 
             <YourEventsContainer 
               userEvents={this.state.userEvents}
+              deleteEvent={this.deleteEvent}
             />}
           />
 
