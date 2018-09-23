@@ -25,7 +25,7 @@ class Events extends Component {
 		    <a className='events' target='_blank' href={this.props.eventInfo.url}>
 		    <img  className='eventImg' src={this.props.eventInfo.image_url} alt={this.props.eventInfo.name}/>
 		     <div> <h4>{this.props.eventInfo.name}</h4></div></a><br/>
-		    <button id={this.props.eventInfo.eventid} onClick={this.handleClick}>Add to Your Events</button>
+		    <button id={this.props.eventInfo.url} onClick={this.handleClick}>Add to Your Events</button>
 	    </div>
 	    
 	  )

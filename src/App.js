@@ -58,13 +58,14 @@ class App extends Component {
   }
 
   //called if login was successful
-  login = (userId, userCategories, key, location) => {
+  login = (userId, userCategories, key, location, events) => {
     this.setState({
       loggedIn: true,
       userId: userId, 
       userCategories: userCategories, 
       userKey: key, 
-      userLocation: location
+      userLocation: location, 
+      userEvents: events
     })
     this.props.history.push('/categories')
   }
@@ -170,10 +171,30 @@ class App extends Component {
   addEvent = async (event) => {
     try {
       if(this.state.loggedIn) {
-        const response = await fetch(apiURL + 'api/addevent');
+        const body = JSON.stringify({key: this.state.userKey, userid: this.state.userId, event: event})
+        const response = await fetch(apiURL + 'api/addevent', {
+          method:'POST',
+          credentials: 'include',
+          body: body,
+          header: {
+            'Content-Type': 'application/json'
+          }
+        })
 
         const responseJSON = await response.json();
-        console.log(responseJSON)
+        if(responseJSON.status === 200) {
+          for(let i = 0; i < this.state.allEvents.length; i++) {
+            if(this.state.allEvents[i].url === event) {
+              this.setState({
+                userEvents: [...this.state.userEvents, this.state.allEvents[i]]
+              })
+            }
+          }
+        } else if(responseJSON.status === 204) {
+          //do nothing - event already in database
+        } else if(responseJSON.status === 401) {
+          //User not authenticated properly
+        }
       } else {
         this.props.history.push('/register')
       }
@@ -251,8 +272,7 @@ class App extends Component {
 
           <Route exact path='/yourevents' render={() => 
             <YourEventsContainer 
-              categories={this.state.categories} 
-              changeActiveCategory={this.changeActiveCategory} 
+              userEvents={this.state.userEvents}
             />}
           />
 

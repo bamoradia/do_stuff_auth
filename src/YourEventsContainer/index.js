@@ -9,12 +9,18 @@ const apiURL = 'http://localhost:8000/';
 class YourEventsContainer extends Component {
   constructor(){
     super();
-    this.state = {
-      events: []
-    }
   }
 
 
+  // componentDidMount() {
+  //   const eventsSorted = this.props.userEvents.sort((a, b) => {
+  //     return a.fields.date - b.fields.date
+  //   })
+
+  //   this.setState({
+  //     events: eventsSorted
+  //   })
+  // }
 
   //adds events to user in backend serer
   addEvent = async (event, e) => {
@@ -55,13 +61,12 @@ class YourEventsContainer extends Component {
 
 
   render(){
+    console.log(this.props.userEvents)
     return (
-      <div>
-        <ul>
-          <li>{this.state.events}</li>
-        </ul>
-        <button onClick={this.deleteEvent}>Remove</button>
-
+      <div className='eventContainer'>
+        {this.props.userEvents.map((event, i) => {
+          return <Events key={i} addEvent={this.props.addEvent} eventInfo={event.fields}/>
+        })}
       </div>
     )
   }

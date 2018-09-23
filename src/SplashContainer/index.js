@@ -35,13 +35,23 @@ class SplashContainer extends Component {
       const loginResponseJSON = await loginResponse.json()
       if(loginResponseJSON.status === 200) {
         const loginCategories = await JSON.parse(loginResponseJSON.categories)
+        const events = await JSON.parse(loginResponseJSON.events)
+
+        let eventsSorted = []
+        if(events.length > 1) {
+          eventsSorted = events.sort((a, b) => {
+            return a.fields.date - b.fields.date
+          })
+        } else {
+          eventsSorted = events
+        }
 
         const userCats = []
         //gets category names from response data
         for(let i = 0; i < loginCategories.length; i++) {
           userCats.push(loginCategories[i].fields.name)
         }  
-        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location)
+        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location, eventsSorted)
         
       } else {
         this.setState({

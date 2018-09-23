@@ -36,22 +36,9 @@ class Menu extends Component {
   }
 
   render(){
-    return(
-       <div className='menuButton'>
-        <button onClick={this.showMenu}>
-          Menu
-        </button>
-        
-        {
-          this.state.showMenu
-            ? (
-              <div
-                className="menu"
-                ref={(element) => {
-                  this.dropdownMenu = element;
-                }}
-              >
-            <ul>
+    return (
+      <div className='menuButton'>
+        <ul>
               <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/'><span className='menuText'>Home</span></Link></li>
               <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/yourEvents'><span className='menuText'>Your Events</span></Link></li>
               <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/settings'><span className='menuText'>Account Settings</span></Link></li>
@@ -59,14 +46,41 @@ class Menu extends Component {
               <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categoryevent'><span className='menuText'>Category Events</span></Link></li>
               <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/logout'><span className='menuText'>Logout</span></Link></li>
             </ul>
-          </div>
-            )
-            : (
-              null
-            )
-        }
+
       </div>
-    );
+
+    )
+    // return(
+    //    <div className='menuButton'>
+    //     <button onClick={this.showMenu}>
+    //       Menu
+    //     </button>
+        
+    //     {
+    //       this.state.showMenu
+    //         ? (
+    //           <div
+    //             className="menu"
+    //             ref={(element) => {
+    //               this.dropdownMenu = element;
+    //             }}
+    //           >
+    //         <ul>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/'><span className='menuText'>Home</span></Link></li>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/yourEvents'><span className='menuText'>Your Events</span></Link></li>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/settings'><span className='menuText'>Account Settings</span></Link></li>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categories'><span className='menuText'>Your Interests</span></Link></li>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categoryevent'><span className='menuText'>Category Events</span></Link></li>
+    //           <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/logout'><span className='menuText'>Logout</span></Link></li>
+    //         </ul>
+    //       </div>
+    //         )
+    //         : (
+    //           null
+    //         )
+    //     }
+    //   </div>
+    // );
   }
 }
 
