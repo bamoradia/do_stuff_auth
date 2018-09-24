@@ -13,7 +13,9 @@ class SplashContainer extends Component {
     this.state = {
       username: '',
       password: '',
-      error: false
+      error: false,
+      test: false,
+      authToken: ''
       // skipLogin: null
     }
   }
@@ -22,53 +24,134 @@ class SplashContainer extends Component {
   handleSubmit = async (e) => {
     try{
       e.preventDefault();
-      const loginResponse = await fetch(apiURL + 'api/login', {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(this.state),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-
-      //parses response data to useable objects
-      const loginResponseJSON = await loginResponse.json()
-      if(loginResponseJSON.status === 200) {
-        const loginCategories = await JSON.parse(loginResponseJSON.categories)
-        const events = await JSON.parse(loginResponseJSON.events)
-
-        let eventsSorted = []
-        if(events.length > 1) {
-          eventsSorted = events.sort((a, b) => {
-            return a.fields.date - b.fields.date
-          })
-        } else {
-          eventsSorted = events
-        }
-
-        const eventsParsed = []
-        for(let i = 0; i < eventsSorted.length; i++) {
-          eventsParsed.push(eventsSorted[i].fields)
-        }
-
-        const userCats = []
-        //gets category names from response data
-        for(let i = 0; i < loginCategories.length; i++) {
-          userCats.push(loginCategories[i].fields.name)
-        }  
-        this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location, eventsParsed)
-        
-      } else {
-        this.setState({
-          username: '',
-          password: '',
-          error: true
+      if(this.state.username !== 'TestSMS') {
+        const loginResponse = await fetch(apiURL + 'api/login', {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify(this.state),
+          headers: {
+            'Content-Type': 'application/json'
+          }
         })
+
+        //parses response data to useable objects
+        const loginResponseJSON = await loginResponse.json()
+        if(loginResponseJSON.status === 200) {
+          const loginCategories = await JSON.parse(loginResponseJSON.categories)
+          const events = await JSON.parse(loginResponseJSON.events)
+
+          let eventsSorted = []
+          if(events.length > 1) {
+            eventsSorted = events.sort((a, b) => {
+              return a.fields.date - b.fields.date
+            })
+          } else {
+            eventsSorted = events
+          }
+
+          const eventsParsed = []
+          for(let i = 0; i < eventsSorted.length; i++) {
+            eventsParsed.push(eventsSorted[i].fields)
+          }
+
+          const userCats = []
+          //gets category names from response data
+          for(let i = 0; i < loginCategories.length; i++) {
+            userCats.push(loginCategories[i].fields.name)
+          }  
+          this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location, eventsParsed)
+          
+        } else {
+          this.setState({
+            username: '',
+            password: '',
+            error: true
+          })
+        }
+      } else {
+        const loginResponse = await fetch(apiURL + 'api/login', {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify(this.state),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        //parses response data to useable objects
+        const loginResponseJSON = await loginResponse.json()
+        if(loginResponseJSON.status === 200) {
+          this.setState({
+            test: true,
+            password: ''
+          })
+
+        } else {
+          this.setState({
+            username: '',
+            password: '',
+            error: true
+          })
+        }
       }
 
 
-    } catch (err) {
+    } catch(err) {
       console.log(err, 'Error with login in splash container')
+    }
+  }
+
+  handleTestSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const loginResponse = await fetch(apiURL + 'api/auth', {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify(this.state),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        //parses response data to useable objects
+        const loginResponseJSON = await loginResponse.json()
+
+        if(loginResponseJSON.status === 200) {
+
+          const loginCategories = await JSON.parse(loginResponseJSON.categories)
+          const events = await JSON.parse(loginResponseJSON.events)
+
+          let eventsSorted = []
+          if(events.length > 1) {
+            eventsSorted = events.sort((a, b) => {
+              return a.fields.date - b.fields.date
+            })
+          } else {
+            eventsSorted = events
+          }
+
+          const eventsParsed = []
+          for(let i = 0; i < eventsSorted.length; i++) {
+            eventsParsed.push(eventsSorted[i].fields)
+          }
+
+          const userCats = []
+          //gets category names from response data
+          for(let i = 0; i < loginCategories.length; i++) {
+            userCats.push(loginCategories[i].fields.name)
+          }  
+          this.props.login(loginResponseJSON.userid, userCats, loginResponseJSON.key, loginResponseJSON.location, eventsParsed)
+          
+        } else {
+          this.setState({
+            username: '',
+            password: '',
+            error: true
+          })
+        }
+
+    } catch(err) {
+      console.log(err, 'error with handleTestSubmit')
     }
   }
 
@@ -78,7 +161,7 @@ class SplashContainer extends Component {
   }
 
   render(){
-    if(this.props.loggedIn === false){
+    if(this.props.loggedIn === false && this.state.test === false ){
       return(
         <div className='splashContainer'>
           <div className='splash'>
@@ -112,7 +195,29 @@ class SplashContainer extends Component {
           </div> 
         </div>
       )
-    } else {
+    } else if(this.state.test === true) {
+      return(
+        <div className='splashContainer'>
+          <div className='splash'>
+            <div className='login'>
+              <form onSubmit={this.handleTestSubmit}>
+                <label>
+                  Please Enter the Auth Token Sent To Your Phone:
+                </label>
+                <br />
+                <input id='usernameinput' className='input' name='authToken' placeholder='Auth Token' onChange={this.handleChange} />
+                <button>Submit</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      )
+    }
+
+
+    else {
       return <Redirect to={'/categories'} />
     }
   }
