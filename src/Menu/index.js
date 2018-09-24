@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 // import SplashContainer from './SplashContainer';
 
 class Menu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     
     this.state = {
       showMenu: false,
@@ -36,20 +36,34 @@ class Menu extends Component {
   }
 
   render(){
-    return (
-      <div className='menuButton'>
-        <ul>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/'><span className='menuText'>Home</span></Link></li>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/yourEvents'><span className='menuText'>Your Events</span></Link></li>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/settings'><span className='menuText'>Account Settings</span></Link></li>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categories'><span className='menuText'>Your Interests</span></Link></li>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categoryevent'><span className='menuText'>Category Events</span></Link></li>
-              <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/logout'><span className='menuText'>Logout</span></Link></li>
-            </ul>
+    if(this.props.login) {
+      return (
+        <div className='menuButton'>
+          <ul>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/'><span className='menuText'>Home</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/settings'><span className='menuText'>Account Settings</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/yourEvents'><span className='menuText'>Saved Events</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categoryevent'><span className='menuText'>All Events</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/logout'><span className='menuText'>Logout</span></Link></li>
+              </ul>
 
-      </div>
+        </div> 
+      )
+    } else {
+      return (
+        <div className='menuButton'>
+          <ul>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/'><span className='menuText'>Login</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categories'><span className='menuText'>Categories</span></Link></li>
+                <li className='menuToggle'><Link style={{ textDecoration: 'none'}} to='/categoryevent'><span className='menuText'>Events</span></Link></li>
+              </ul>
 
-    )
+        </div>
+      )
+    }
+  }
+
+  
     // return(
     //    <div className='menuButton'>
     //     <button onClick={this.showMenu}>
@@ -81,7 +95,6 @@ class Menu extends Component {
     //     }
     //   </div>
     // );
-  }
 }
 
 export default Menu;

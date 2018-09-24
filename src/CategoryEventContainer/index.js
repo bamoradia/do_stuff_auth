@@ -52,7 +52,7 @@ class CategoryEventContainer extends Component {
         </form>
         <div className='eventContainer'>
           {this.state.activeCategoryEvents.map((event, i) => {
-            return <Events addEvent={this.props.addEvent} eventInfo={event}/>
+            return <Events key={i} addEvent={this.props.addEvent} eventInfo={event}/>
           })}
         </div>  
 

@@ -93,7 +93,7 @@ class App extends Component {
       userLocation: '',
       userKey: '',
       userCategories: [],
-      userEvent: []
+      userEvents: []
     })
     this.props.history.push('/')
   }
@@ -220,7 +220,7 @@ class App extends Component {
 
         const responseJSON = await response.json();
         if(responseJSON.status === 200) {
-          const events = this.state.userEvents.filter(event => event.fields.url != event)
+          const events = this.state.userEvents.filter(events => events.url != event)
           this.setState({
             userEvents: events
           })
@@ -241,7 +241,7 @@ class App extends Component {
   render() {
     return (
       <main>
-        <Header />
+        <Header login={this.state.loggedIn}/>
         <Switch>
           
           {this.state.loaded ? 
