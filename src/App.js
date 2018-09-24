@@ -301,8 +301,6 @@ class App extends Component {
               deleteEvent={this.deleteEvent}
             />}
           />
-
-          <Route component={My404}/>
         </Switch>
       </main>
     )
