@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import DeleteEvent from '../DeleteEvent';
 import {Route, Switch} from 'react-router-dom';
 
-const apiURL = 'http://localhost:8000/';
-// const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
-
 
 class YourEventsContainer extends Component {
   constructor(){

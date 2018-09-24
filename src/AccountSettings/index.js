@@ -3,8 +3,9 @@ import { Redirect } from 'react-router-dom';
 
 // Account settings page
 
-const apiURL = 'http://localhost:8000/';
+// const apiURL = 'http://localhost:8000/';
 // const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
+const apiURL = 'https://intense-gorge-80156.herokuapp.com/'
 
 class AccountSettings extends Component{
   constructor(props){

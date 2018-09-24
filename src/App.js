@@ -11,18 +11,9 @@ import AccountSettings from './AccountSettings'
 import YourEventsContainer from './YourEventsContainer'
 import Loading from './Loading'
 
-const apiURL = 'http://localhost:8000/';
+// const apiURL = 'http://localhost:8000/';
 // const apiURL = 'https://ancient-springs-75165.herokuapp.com/'
-
-//Wrong page error message
-const My404 = () => {
-  return (
-    <div>
-      You dun goofed
-    </div>
-  )
-}
-
+const apiURL = 'https://intense-gorge-80156.herokuapp.com/'
 
 class App extends Component {
   constructor() {
