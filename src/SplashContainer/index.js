@@ -37,6 +37,7 @@ class SplashContainer extends Component {
 
         //parses response data to useable objects
         const loginResponseJSON = await loginResponse.json()
+        console.log(loginResponseJSON)
         if(loginResponseJSON.status === 200) {
           const loginCategories = await JSON.parse(loginResponseJSON.categories)
           const events = await JSON.parse(loginResponseJSON.events)

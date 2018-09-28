@@ -211,7 +211,7 @@ class App extends Component {
 
         const responseJSON = await response.json();
         if(responseJSON.status === 200) {
-          const events = this.state.userEvents.filter(events => events.url != event)
+          const events = this.state.userEvents.filter(events => events.url !== event)
           this.setState({
             userEvents: events
           })

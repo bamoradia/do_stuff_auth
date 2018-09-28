@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import DeleteEvent from '../DeleteEvent';
-import {Route, Switch} from 'react-router-dom';
 
 
 class YourEventsContainer extends Component {
-  constructor(){
-    super();
-  }
   render(){
     console.log(this.props.userEvents)
     return (

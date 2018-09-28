@@ -31,9 +31,10 @@ class Register extends Component {
 						'Content-Type': 'application/json'
 					}
 				})
+				console.log(registerResponse)
 		
 				const registerResponseJSON = await registerResponse.json();
-
+				console.log(registerResponseJSON)
 				//checks status from server
 				if(registerResponseJSON.status === 200) {
 					this.props.register(this.state.location, registerResponseJSON.userid, registerResponseJSON.key)
